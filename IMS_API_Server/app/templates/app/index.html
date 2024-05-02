@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }} - Inventory Management System</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'app/content/bootstrap.min.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'app/content/site.css' %}" />    
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="/" class="navbar-brand">Inventory Management System</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    {% if user.is_authenticated %}
+                    <li><a href="{% url 'admin:index' %}">Dashboard</a></li>
+                    {% endif %}
+                </ul>
+                {% if user.is_authenticated %}
+                <ul class="nav navbar-nav navbar-right">
+                    <li><span class="navbar-brand">Hello {{ user.username }}!</span></li>
+                    <li>
+                        <form action="{% url 'admin:logout' %}" method="post">
+                            {% csrf_token %}
+                            <button class="navbar-brand" style="border: 0;background: none;" type="submit">Log off</button>
+                        </form>
+                    </li>
+                </ul>
+                {% else %}
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="{% url 'admin:login' %}">Log in</a></li>
+                </ul>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="container body-content" style="padding-top: 15px;">
+        <div class="jumbotron">
+            <h1>Inventory Management System</h1>
+            <p class="lead">Inventory Management System for small businesses and non-profit organizations.</p>
+        </div>
+    </div>
+</body>
+</html>
